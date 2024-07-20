@@ -41,13 +41,7 @@ class Server:
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         """ return all data"""
-
-        # if index is None:
-        #     index = 0
-
-        # assert isinstance(index, int)
         assert index in range(len(self.indexed_dataset()))
-        # assert isinstance(page_size, int) and page_size > 0
 
         data = []
         next_index = index + page_size
