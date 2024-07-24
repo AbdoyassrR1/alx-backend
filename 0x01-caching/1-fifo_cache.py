@@ -14,14 +14,14 @@ class FIFOCache(BaseCaching):
         """ Add an item in the cache """
         if key is None or item is None:
             pass
-        if len(self.cache_data) == BaseCaching.MAX_ITEMS\
-                and key not in self.cache_data.keys():
-            keys = deque(self.cache_data.keys())
-            discarded = keys.popleft()
-            del self.cache_data[discarded]
-            print(f"DISCARD: {discarded}")
-            self.cache_data[key] = item
         else:
+            if len(self.cache_data) >= BaseCaching.MAX_ITEMS\
+                    and key not in self.cache_data.keys():
+                keys = deque(self.cache_data.keys())
+                discarded = keys.popleft()
+                del self.cache_data[discarded]
+                print(f"DISCARD: {discarded}")
+                self.cache_data[key] = item
             self.cache_data[key] = item
 
     def get(self, key):
