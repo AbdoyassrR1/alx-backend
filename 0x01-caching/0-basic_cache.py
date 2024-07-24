@@ -1,23 +1,54 @@
-#!/usr/bin/python3
-"""Basic Cache implementation Class
-"""
-BaseCaching = __import__('BaseCaching').BaseCaching
+#!/usr/bin/env python3
+""" BaseCaching module """
 
 
-class BasicCache(BaseCaching):
+class BaseCaching():
+    """ BaseCaching defines:
+      - constants of your caching system
+      - where your data are stored (in a dictionary)
     """
-    A basic cache implementaion class
+    MAX_ITEMS = 4
 
-    Attributes:
-        MAX_ITEMS: number of items that can be store in the cache
-    """
+    def __init__(self):
+        """ Initiliaze
+        """
+        self.cache_data = {}
+
+    def print_cache(self):
+        """ Print the cache
+        """
+        print("Current cache:")
+        for key in sorted(self.cache_data.keys()):
+            print("{}: {}".format(key, self.cache_data.get(key)))
+
     def put(self, key, item):
         """ Add an item in the cache
         """
-        if key is not None and item is not None:
-            self.cache_data.update({key: item})
+        raise NotImplementedError(
+            "put must be implemented in your cache class")
 
     def get(self, key):
         """ Get an item by key
         """
-        return self.cache_data.get(key, None)
+        raise NotImplementedError(
+            "get must be implemented in your cache class")
+
+
+class BasicCache(BaseCaching):
+    """ BasicCache """
+    def __init__(self):
+        """Initiliazef"""
+        super().__init__()
+
+    def put(self, key, item):
+        """ Add an item in the cache """
+        if key is None or item is None:
+            pass
+        else:
+            self.cache_data[key] = item
+
+    def get(self, key):
+        """ Get an item by key """
+        if key is None or key not in self.cache_data.keys():
+            return None
+        return self.cache_data[key]
